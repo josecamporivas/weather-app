@@ -3,8 +3,9 @@ import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
   } from "use-places-autocomplete";
+import Suggestions from "../Suggestions/Suggestions";
 
-export default function SearchInput(){    
+export default function SearchInput({setLocation}){    
     const {ready,value,suggestions: { status, data },setValue,clearSuggestions,} = usePlacesAutocomplete({
         debounce: 200,
     });
@@ -13,29 +14,33 @@ export default function SearchInput(){
         setValue(e.target.value)
         console.log(e.target.value)
         console.log(data)
-
-        if(data[0] && data[0].description){
-            const results = await getGeocode({
-                address: data[0].description
-            })
-    
-            const { lat, lng } = getLatLng(results[0]);
-            console.log(lat, lng)
-        }
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e, description) => {
         e.preventDefault()
-        console.log(value)
+        await handleSelect({description})
+    }
 
-        //API KEY STILL NOT ACTIVE
-        /* const data = await fetch(URL_EXAMPLE).then(data => data.json())
-        console.log(data) */
+    const handleSelect = async ({description}) => {
+        const results = await getGeocode({
+            address: description
+        })
+
+        const { lat, lng } = getLatLng(results[0]);
+        console.log(lat, lng)
+
+        setLocation({lat,lng, description})
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input disabled={!ready} className='bg-slate-200 font-semibold p-1 rounded placeholder:text-slate-700' placeholder="Search a location..." onChange={handleChange} value={value}/>        
+        <form onSubmit={(e) => handleSubmit(e, data[0].description)}>
+            <div className="max-w-[216px] overflow-hidden">
+                <input disabled={!ready} className='bg-slate-200 border-slate-500 border-2 font-medium px-2 py-1 rounded-md focus:outline-none focus:border-slate-700 placeholder:text-slate-700' placeholder="Search a location..." onChange={handleChange} value={value}/> 
+                {
+                    data[0] && data[0].description &&
+                    <Suggestions data={data} handleSelect={handleSelect} />
+                }    
+            </div>   
         </form>
     )
 }
