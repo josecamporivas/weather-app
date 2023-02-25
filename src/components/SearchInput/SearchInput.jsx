@@ -1,4 +1,3 @@
-import { useState } from "react"
 import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
@@ -6,7 +5,7 @@ import usePlacesAutocomplete, {
 import Suggestions from "../Suggestions/Suggestions";
 
 export default function SearchInput({setLocation}){    
-    const {ready,value,suggestions: { status, data },setValue,clearSuggestions,} = usePlacesAutocomplete({
+    const {ready,value,suggestions: { status, data },setValue,clearSuggestions} = usePlacesAutocomplete({
         debounce: 200,
     });
 
@@ -30,10 +29,11 @@ export default function SearchInput({setLocation}){
         console.log(lat, lng)
 
         setLocation({lat,lng, description})
+        clearSuggestions()
     }
 
     return (
-        <form onSubmit={(e) => handleSubmit(e, data[0].description)}>
+        <form className="mt-3" onSubmit={(e) => handleSubmit(e, data[0].description)}>
             <div className="max-w-[216px] overflow-hidden">
                 <input disabled={!ready} className='bg-slate-200 border-slate-500 border-2 font-medium px-2 py-1 rounded-md focus:outline-none focus:border-slate-700 placeholder:text-slate-700' placeholder="Search a location..." onChange={handleChange} value={value}/> 
                 {
