@@ -23,20 +23,18 @@ function App() {
     .then((data) => data.json())
     .then(results => {
       setWeather(results)
-      console.log(results)
     })
 
     fetch(URL_API_FORECAST)
     .then((data) => data.json())
     .then(results => {
       setForecastArray(results.list)
-      console.log(results)
     })
 
   }, [location, URL_API_ACTUAL_WEATHER, URL_API_FORECAST])
   
   return (
-    <div className='min-h-screen flex flex-col gap-2 items-center bg-slate-800'>
+    <div className='min-h-screen flex flex-col gap-3 items-center bg-slate-800'>
       <SearchInput setLocation={setLocation} />
       {weather ? 
       <CurrentWeather weather={weather} /> : <></>}
