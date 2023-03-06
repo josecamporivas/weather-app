@@ -5,7 +5,7 @@ export default function AdditionalData({humidity, wind, sys, feelsLikeCelsius}){
     const DATE_SUNSET = new Date(sys.sunset * 1000)
 
     return (
-        <section className="flex flex-col">
+        <section className="flex flex-col px-2">
             <div className="flex flex-row gap-2 items-center">
                 <img className="w-7" src={`${process.env.PUBLIC_URL}/weatherIcons/descarga.png`} alt="Humidity icon"/>
                 <label>Feels like: {feelsLikeCelsius}ºC</label>
@@ -18,7 +18,12 @@ export default function AdditionalData({humidity, wind, sys, feelsLikeCelsius}){
 
             <div className="flex flex-row gap-2 items-center">
                 <img className="w-7" src={`${process.env.PUBLIC_URL}/weatherIcons/windSpeed.png`} alt="Wind speed icon"/>
-                <label>Wind: {windSpeedKm}km/h</label>
+                <label>Wind speed: {windSpeedKm}km/h</label>
+            </div>
+
+            <div className="flex flex-row gap-2 items-center">
+                <img className="w-7" src={`${process.env.PUBLIC_URL}/weatherIcons/windDegree.png`} alt="Wind degree icon"/>
+                <label>Wind degree: {wind.deg}º</label>
             </div>
 
             <div className="flex flex-row gap-2 items-center">

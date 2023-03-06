@@ -37,7 +37,7 @@ function App() {
     <div className='min-h-screen flex flex-col gap-3 items-center bg-slate-800'>
       <SearchInput setLocation={setLocation} />
       {weather ? 
-      <CurrentWeather weather={weather} /> : <></>}
+      <CurrentWeather weather={weather} /> : <></>}   {/* TODO: ADD CHART WITH SOME DATA TO COVER THE EMPTY SPACE */}
       {forecastArray ?
       <ForecastList forecastArray={forecastArray} /> : <></>}
     </div>
