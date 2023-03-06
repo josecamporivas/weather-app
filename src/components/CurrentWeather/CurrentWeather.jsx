@@ -9,13 +9,13 @@ export default function CurrentWeather({weather: currentWeather}){
     const feelsLikeCelsius = Math.round(main.feels_like - 273.15)
 
     return (
-    <div className="flex flex-col text-slate-200 bg-slate-500 w-7/12 p-4 rounded-md">
-        <div className="flex flex-row justify-between">
+    <div className="flex flex-col text-slate-200 bg-slate-500 w-9/12 p-5 rounded-md">
+        <div className="flex flex-row justify-between px-2">
             <section>
                 <h1 className="text-3xl font-bold">{temperatureCelsius} ºC</h1>
                 <h2 className="capitalize text-xl font-bold ">{weather[0].description}</h2>
             </section>
-            <img className="p-0" alt={weather[0].description} src={`${process.env.PUBLIC_URL}/weatherIcons/${weather[0].icon}.png`} />
+            <img alt={weather[0].description} src={`${process.env.PUBLIC_URL}/weatherIcons/${weather[0].icon}.png`} />
         </div>
         <AdditionalData humidity={humidity} wind={wind} sys={sys} feelsLikeCelsius={feelsLikeCelsius} />
     </div>)
